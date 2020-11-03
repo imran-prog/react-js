@@ -1,36 +1,38 @@
 import React, { useEffect } from "react";
+import SpotifyWebApi from "spotify-web-api-js";
+import { useStateValue } from "./StateProvider";
+import Player from "./Player";
+import { getTokenFromResponse } from "./spotify";
 import "./App.css";
 import Login from "./Login";
-import Player from "./Player";
-import { getTokenFromUrl } from "./spotify";
-import SpotifyWebApi from "spotify-web-api-js";
-import { useDataLayerValue } from "./DataLayer";
 
-const spotify = new SpotifyWebApi();
+const s = new SpotifyWebApi();
 
 function App() {
-  const [{ token }, dispatch] = useDataLayerValue();
+  const [{ token }, dispatch] = useStateValue();
 
   useEffect(() => {
-    const hash = getTokenFromUrl();
+    // Set token
+    const hash = getTokenFromResponse();
     window.location.hash = "";
-    const _token = hash.access_token;
+    let _token = hash.access_token;
 
     if (_token) {
+      s.setAccessToken(_token);
 
       dispatch({
         type: "SET_TOKEN",
         token: _token,
       });
 
-      spotify.getPlaylist("37i9dQZEVXcJbGOfsLFZ2P").then((response) =>
+      s.getPlaylist("37i9dQZEVXcJbGOfsLFZ2P").then((response) =>
         dispatch({
           type: "SET_DISCOVER_WEEKLY",
           discover_weekly: response,
         })
       );
 
-      spotify.getMyTopArtists().then((response) =>
+      s.getMyTopArtists().then((response) =>
         dispatch({
           type: "SET_TOP_ARTISTS",
           top_artists: response,
@@ -39,26 +41,31 @@ function App() {
 
       dispatch({
         type: "SET_SPOTIFY",
-        spotify: spotify,
+        spotify: s,
       });
 
-      spotify.getMe().then((user) => {
+      s.getMe().then((user) => {
         dispatch({
           type: "SET_USER",
           user,
         });
       });
 
-      spotify.getUserPlaylists().then((playlists) => {
+      s.getUserPlaylists().then((playlists) => {
         dispatch({
           type: "SET_PLAYLISTS",
           playlists,
         });
       });
     }
-  }, []);
+  }, [token, dispatch]);
 
-  return <div className="app">{token ? <Player spotify={spotify} /> : <Login />}</div>;
+  return (
+    <div className="app">
+      {!token && <Login />}
+      {token && <Player spotify={s} />}
+    </div>
+  );
 }
 
 export default App;
