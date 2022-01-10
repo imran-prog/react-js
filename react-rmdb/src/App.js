@@ -3,18 +3,14 @@ import React from 'react';
 // Styles
 import { GlobalStyle } from './GlobalStyle';
 
-// function App() {
-//   return (
-//     <div className="App">
-//       Start here.
-//     </div>
-//   );
-// }
+// Components
+import Header from './components/Header'
 
 class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <Header />
         Start here.
         <GlobalStyle />
        </div>
