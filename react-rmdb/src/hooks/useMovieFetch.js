@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react'
 import API from '../API'
 
+const initialState = {
+    actors: [],
+    directors: []
+}
 
 export const useMovieFetch = (movieId) => {
-    const [state, setState] = useState({})
+    const [state, setState] = useState(initialState)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
 
