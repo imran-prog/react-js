@@ -7,6 +7,7 @@ import Grid from './Grid'
 import Spinner from './Spinner'
 import BreadCrumb from './BreadCrumb'
 import MovieInfo from './MovieInfo'
+import MovieInfoBar from './MovieInfoBar.js'
 // Hook
 import { useMovieFetch } from '../hooks/useMovieFetch'
 // Image
@@ -25,6 +26,11 @@ const Movie = () => {
         <>
             <BreadCrumb movieTitle={state.original_title} />
             <MovieInfo movie={state} />
+            <MovieInfoBar 
+                time={state.runtime} 
+                budget={state.budget} 
+                revenue={state.revenue} 
+            />
         </>
     )
 }
