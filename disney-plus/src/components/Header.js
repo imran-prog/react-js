@@ -1,44 +1,71 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 // Components
 import HeaderMenu from "./HeaderMenu";
 // Firebase
 import { auth } from "../firebaseConnect";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  selectUserName,
+  selectUserPhoto,
+  setUserLoginDetails,
+} from "../features/user/userSlice";
 
 const Header = (props) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const username = useSelector(selectUserName);
+  const userphoto = useSelector(selectUserPhoto);
+
   const handleAuth = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        console.log(result);
-        // const token = credential.accessToken;
-        // The signed-in user info.
-        // const user = result.user;
-        // ...
+        setUser(result.user);
       })
       .catch((error) => {
-        // Handle Errors here.
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
-        // The email of the user's account used.
-        // const email = error.email;
-        // The AuthCredential type that was used.
-        // const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-        console.log(error);
+        alert(error.message);
       });
   };
+
+  const setUser = (user) => {
+    dispatch(
+      setUserLoginDetails({
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+      })
+    );
+  };
+
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      setUser(user);
+      navigate("/home");
+    });
+  }, []);
 
   return (
     <Navbar>
       <Logo>
         <img src="/images/logo.svg" alt="Disney+" />
       </Logo>
-      <HeaderMenu />
-      <Login onClick={handleAuth}>Login</Login>
+      {!username ? (
+        <Login onClick={handleAuth}>Login</Login>
+      ) : (
+        <>
+          <HeaderMenu />
+          <SignOut>
+            <UserImage src={userphoto} alt={username} />
+            <DropDown>
+              <span onClick={handleAuth}>Sign out</span>
+            </DropDown>
+          </SignOut>
+        </>
+      )}
     </Navbar>
   );
 };
@@ -85,6 +112,48 @@ const Login = styled.a`
   &:hover {
     background-color: #f9f9f9;
     color: #000;
+  }
+`;
+
+const UserImage = styled.img`
+  height: 100%;
+`;
+
+const DropDown = styled.div`
+  position: absolute;
+  top: 48px;
+  right: 0px;
+  background: rgb(19, 19, 19);
+  border: 1px solid rgba(151, 151, 151, 0.34);
+  border-radius: 4px;
+  box-shadow: rgba(0 0 0 / 50%) 0px 0px 18px 0px;
+  padding: 10px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  width: 120px;
+  opacity: 0;
+`;
+
+const SignOut = styled.div`
+  position: relative;
+  height: 48px;
+  width: 48px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+
+  ${UserImage} {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover {
+    ${DropDown} {
+      opacity: 1;
+      transition-duration: 1s;
+    }
   }
 `;
 
