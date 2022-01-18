@@ -12,6 +12,7 @@ import {
   selectUserName,
   selectUserPhoto,
   setUserLoginDetails,
+  setSignOutState,
 } from "../features/user/userSlice";
 
 const Header = (props) => {
@@ -21,14 +22,28 @@ const Header = (props) => {
   const userphoto = useSelector(selectUserPhoto);
 
   const handleAuth = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        setUser(result.user);
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+    console.log(username);
+    if (!username) {
+      const provider = new GoogleAuthProvider();
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          console.log(result);
+          setUser(result.user);
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    } else if (username) {
+      auth
+        .signOut()
+        .then(() => {
+          dispatch(setSignOutState());
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
   };
 
   const setUser = (user) => {
@@ -46,7 +61,7 @@ const Header = (props) => {
       setUser(user);
       navigate("/home");
     });
-  }, []);
+  }, [username]);
 
   return (
     <Navbar>
