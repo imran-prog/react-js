@@ -3,14 +3,17 @@ import styled from "styled-components";
 //Components
 import ImgSlider from "./ImgSlider";
 import Viewers from "./Viewers";
-import Recommends from "./Recommends";
+import Grid from "./Grid";
 
 const Home = (props) => {
   return (
     <Container>
       <ImgSlider />
       <Viewers />
-      <Recommends />
+      <Grid header="Recommended for You" />
+      <Grid header="New To Disney" />
+      <Grid header="Originals" />
+      <Grid header="Trendings" />
     </Container>
   );
 };
