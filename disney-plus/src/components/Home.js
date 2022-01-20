@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect } from "react";
 import styled from "styled-components";
 //Components
@@ -23,7 +24,6 @@ const Home = (props) => {
   useEffect(() => {
     onSnapshot(collection(db, "movies"), (snapshot) => {
       snapshot.docs.map((doc) => {
-        // eslint-disable-next-line default-case
         switch (doc.data().type) {
           case "recommend":
             recommends = [...recommends, { id: doc.id, ...doc.data() }];
