@@ -23,12 +23,10 @@ const Header = (props) => {
   const userphoto = useSelector(selectUserPhoto);
 
   const handleAuth = () => {
-    console.log(username);
     if (!username) {
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider)
         .then((result) => {
-          console.log(result);
           setUser(result.user);
         })
         .catch((error) => {
