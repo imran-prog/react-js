@@ -224,7 +224,7 @@ const SubTitle = styled.div`
 const Description = styled.div`
   color: rgb(249, 249, 249);
   font-size: 20px;
-  padding: 16px 0 50px;
+  padding: 16px 0;
   line-height: 1.4;
 
   @media (max-width: 768px) {
