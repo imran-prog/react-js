@@ -75,7 +75,7 @@ const Header = (props) => {
           <SignOut>
             <UserImage src={userphoto} alt={username} />
             <DropDown>
-              <span onClick={handleAuth}>Sign out</span>
+              <span onClick={handleAuth}>Sign out </span>
             </DropDown>
           </SignOut>
         </>
