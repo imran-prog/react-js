@@ -7,9 +7,12 @@ import { doc, getDoc } from "firebase/firestore";
 
 const Detail = () => {
   const { id } = useParams();
-  const [detailsData, setDetailsData] = useState({});
+  const [detailsData, setDetailsData] = useState(
+    sessionStorage.getItem("details") || {}
+  );
 
   useEffect(() => {
+    sessionStorage.setItem("details", detailsData);
     getDoc(doc(db, "movies", id))
       .then((doc) => {
         if (doc.exists) {
@@ -21,7 +24,7 @@ const Detail = () => {
       .catch((e) => {
         console.log("The error while getting document: ", e);
       });
-  }, [id, setDetailsData]);
+  }, [detailsData, id, setDetailsData]);
 
   return (
     <Wrapper>
@@ -78,9 +81,9 @@ const Background = styled.div`
   img {
     width: 100vw;
     height: 100vh;
+    object-fit: cover;
 
     @media (max-width: 768px) {
-      width: initial;
     }
   }
 `;
@@ -90,7 +93,7 @@ const ImageTitle = styled.div`
   display: flex;
   -webkit-box-pack: start;
   justify-content: flex-start;
-  margin: 0px auto;
+  margin: -80px auto 0px;
   height: 30vw;
   min-height: 170px;
   padding-bottom: 24px;
@@ -100,6 +103,10 @@ const ImageTitle = styled.div`
     max-width: 600px;
     min-width: 200px;
     width: 35vw;
+  }
+
+  @media (max-width: 768px) {
+    margin: 0 auto;
   }
 `;
 
