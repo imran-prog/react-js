@@ -50,7 +50,7 @@ const Logo = styled.div`
     width: 120px;
 
     @media (max-width: 768px) {
-      width: 80px;
+      width: 100px;
     }
   }
 `;
@@ -70,6 +70,11 @@ const Host = styled.button`
   padding: 12px;
   line-height: 0px;
 
+  @media (max-width: 768px) {
+    padding: 8px;
+    font-size: 12px;
+  }
+
   &:hover {
     background: rgba(255, 255, 255, 0.15);
   }
@@ -78,7 +83,11 @@ const Host = styled.button`
 const LangRegion = styled(Host)`
   margin-right: 8px;
   span {
-    font-size: 18px;
+    font-size: 20px;
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
   }
 `;
 
@@ -89,12 +98,21 @@ const UserData = styled.div`
   background: rgb(255, 255, 255);
   border-radius: 22px;
   padding: 12px;
-  
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    padding: 2px 5px;
+  }
 
   .material-icons {
     color: #222222;
-    font-size: 16px;
-    font-weight: 100;
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  img {
+    width: 25px;
+    height: 25px;
   }
 `;
 
