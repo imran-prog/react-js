@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Popup from "./Popup";
 
 const Header = (props) => {
   const [profileDrop, setProfileDrop] = useState(false);
-
+  const [popup, setPopup] = useState(false);
   const showProfile = () => setProfileDrop(!profileDrop);
+  const showPop = () => setPopup(!popup);
+
+  const toggleLogIn = () => {
+    showProfile();
+    showPop();
+  };
 
   return (
     <Wrapper>
@@ -26,26 +33,27 @@ const Header = (props) => {
           </UserData>
           {profileDrop ? (
             <DropDown>
+              <div className="dropdown-list" onClick={toggleLogIn}>
+                <div className="dropdown-item">Log In</div>
+              </div>
               <Link to="/">
-                <div>Log In</div>
-              </Link>
-              <Link to="/">
-                <div>Sign Up</div>
+                <div className="dropdown-item">Sign Up</div>
               </Link>
               <hr />
               <Link to="/">
-                <div>Host your home</div>
+                <div className="dropdown-item">Host your home</div>
               </Link>
               <Link to="/">
-                <div>Host an experience</div>
+                <div className="dropdown-item">Host an experience</div>
               </Link>
               <Link to="/">
-                <div>Help</div>
+                <div className="dropdown-item">Help</div>
               </Link>
             </DropDown>
           ) : null}
         </UserList>
       </Content>
+      {popup && <Popup handleClose={showPop} elementData={<>Hello</>} />}
     </Wrapper>
   );
 };
@@ -123,14 +131,16 @@ const DropDown = styled.div`
   right: 80px;
   border-radius: 20px;
 
-  a {
+  a,
+  .dropdown-list {
     height: 40px;
     display: flex;
     align-items: center;
     padding: 0 15px;
     text-decoration: none;
+    cursor: pointer;
 
-    div {
+    .dropdown-item {
       color: rgba(0, 0, 0, 0.8);
       font-size: 14px;
       font-weight: 600;
@@ -141,7 +151,8 @@ const DropDown = styled.div`
     }
     &:first-child {
       margin-top: 10px;
-      div {
+
+      .dropdown-item {
         color: rgb(0, 0, 0);
         font-weight: 700;
       }
