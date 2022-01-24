@@ -10,7 +10,11 @@ const Home = (props) => {
     )
 }
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+    background: #000;
+    color: #FFF;
+    height: 100vh;
+`
 
 const Content = styled.div``
 

@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Header = (props) => {
+  const [profileDrop, setProfileDrop] = useState(false);
+
+  const showProfile = () => setProfileDrop(!profileDrop);
+
   return (
     <Wrapper>
       <Content>
@@ -11,7 +15,7 @@ const Header = (props) => {
             <img src="/images/airbnb.png" alt="airbnb" />
           </Link>
         </Logo>
-        <UserList>
+        <UserList onClick={showProfile}>
           <Host>Become a Host</Host>
           <LangRegion>
             <span className="material-icons">language</span>
@@ -20,6 +24,26 @@ const Header = (props) => {
             <span className="material-icons">menu</span>
             <img src="/images/account.svg" alt="profile" />
           </UserData>
+          {profileDrop ? (
+            <DropDown>
+              <Link to="/">
+                <div>Log In</div>
+              </Link>
+              <Link to="/">
+                <div>Sign Up</div>
+              </Link>
+              <hr />
+              <Link to="/">
+                <div>Host your home</div>
+              </Link>
+              <Link to="/">
+                <div>Host an experience</div>
+              </Link>
+              <Link to="/">
+                <div>Help</div>
+              </Link>
+            </DropDown>
+          ) : null}
         </UserList>
       </Content>
     </Wrapper>
@@ -67,7 +91,7 @@ const Host = styled.button`
   cursor: pointer;
   border-radius: 22px;
   font-weight: 600;
-  padding: 12px;
+  padding: 0px 12px;
   line-height: 0px;
 
   @media (max-width: 768px) {
@@ -87,6 +111,43 @@ const LangRegion = styled(Host)`
 
     @media (max-width: 768px) {
       font-size: 16px;
+    }
+  }
+`;
+
+const DropDown = styled.div`
+  position: absolute;
+  top: 90px;
+  background: #ffffff;
+  width: 240px;
+  right: 80px;
+  border-radius: 20px;
+
+  a {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    text-decoration: none;
+
+    div {
+      color: rgba(0, 0, 0, 0.8);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    &:hover {
+      background: rgb(140 140 140 / 20%);
+    }
+    &:first-child {
+      margin-top: 10px;
+      div {
+        color: rgb(0, 0, 0);
+        font-weight: 700;
+      }
+    }
+    &:last-child {
+      margin-bottom: 10px;
     }
   }
 `;
@@ -115,5 +176,4 @@ const UserData = styled.div`
     height: 25px;
   }
 `;
-
 export default Header;
