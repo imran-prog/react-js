@@ -13,7 +13,7 @@ const Signup = () => {
 
   const register = () => {
     if (!name) {
-      alert("please enter name");
+      return alert("please enter name");
     }
     registerEmailAndPassword(name, email, password);
   };

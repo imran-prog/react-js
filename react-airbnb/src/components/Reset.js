@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // Firebase
 import { auth, sendPasswordReset } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -60,6 +60,7 @@ const Content = styled.div`
     border: none;
     color: white;
     background-color: black;
+    cursor: pointer;
   }
 `;
 

@@ -1,17 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 // Components
 import Popup from "./Popup";
 import Login from "./Login";
 import Signup from "./Signup";
+// Firebase
+import { auth, db, logout } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { query, collection, getDocs, where } from "firebase/firestore";
 
 const Header = (props) => {
+  const [name, setName] = useState("");
+  const [user, loader, error] = useAuthState(auth);
   const [profileDrop, setProfileDrop] = useState(false);
   const [popup, setPopup] = useState(false);
   const [caller, setCaller] = useState({});
+
   const showProfile = () => setProfileDrop(!profileDrop);
   const showPop = () => setPopup(!popup);
+
+  const fetchUserName = async () => {
+    try {
+      const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+      const doc = getDocs(q);
+      const data = doc.docs[0].data();
+      console.log(data);
+      setName(data.name);
+    } catch (e) {
+      console.error(e);
+      alert("Eror while fetching user data");
+    }
+  };
+
+  useEffect(() => {
+    if (loader) return;
+    if (!user) return;
+    fetchUserName();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loader, user]);
 
   const toggleLogIn = (e) => {
     setCaller(e.target.id);
@@ -41,12 +68,33 @@ const Header = (props) => {
           </UserData>
           {profileDrop ? (
             <DropDown>
-              <div id="login" className="dropdown-list" onClick={toggleLogIn}>
-                <div className="dropdown-item">Log In</div>
-              </div>
-              <div id="signup" className="dropdown-list" onClick={toggleLogIn}>
-                <div className="dropdown-item">Sign Up</div>
-              </div>
+              {!user ? (
+                <>
+                  <div
+                    id="login"
+                    className="dropdown-list"
+                    onClick={toggleLogIn}
+                  >
+                    <div className="dropdown-item">Log In</div>
+                  </div>
+                  <div
+                    id="signup"
+                    className="dropdown-list"
+                    onClick={toggleLogIn}
+                  >
+                    <div className="dropdown-item">Sign Up</div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Link to="/">
+                    <div className="dropdown-item">{name}</div>
+                  </Link>
+                  <div className="dropdown-list" onClick={logout}>
+                    <div className="dropdown-item">Log out</div>
+                  </div>
+                </>
+              )}
               <hr />
               <Link to="/">
                 <div className="dropdown-item">Host your home</div>
