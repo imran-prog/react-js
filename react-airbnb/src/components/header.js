@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+// Components
 import Popup from "./Popup";
+import Login from "./Login";
+import Signup from "./Signup";
 
 const Header = (props) => {
   const [profileDrop, setProfileDrop] = useState(false);
   const [popup, setPopup] = useState(false);
+  const [caller, setCaller] = useState({});
   const showProfile = () => setProfileDrop(!profileDrop);
   const showPop = () => setPopup(!popup);
 
-  const toggleLogIn = () => {
+  const toggleLogIn = (e) => {
+    setCaller(e.target.id);
     showProfile();
     showPop();
   };
@@ -33,12 +38,12 @@ const Header = (props) => {
           </UserData>
           {profileDrop ? (
             <DropDown>
-              <div className="dropdown-list" onClick={toggleLogIn}>
+              <div id="login" className="dropdown-list" onClick={toggleLogIn}>
                 <div className="dropdown-item">Log In</div>
               </div>
-              <Link to="/">
+              <div id="signup" className="dropdown-list" onClick={toggleLogIn}>
                 <div className="dropdown-item">Sign Up</div>
-              </Link>
+              </div>
               <hr />
               <Link to="/">
                 <div className="dropdown-item">Host your home</div>
@@ -53,7 +58,20 @@ const Header = (props) => {
           ) : null}
         </UserList>
       </Content>
-      {popup && <Popup handleClose={showPop} elementData={<>Hello</>} />}
+      {popup && (
+        <Popup
+          handleClose={showPop}
+          elementData={
+            caller === "login" ? (
+              <Login />
+            ) : caller === "signup" ? (
+              <Signup />
+            ) : (
+              "404 Error Try Again"
+            )
+          }
+        />
+      )}
     </Wrapper>
   );
 };
