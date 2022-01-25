@@ -19,6 +19,9 @@ const Header = (props) => {
     showPop();
   };
 
+  const toggleSignup = () => {
+    setCaller("signup");
+  };
   return (
     <Wrapper>
       <Content>
@@ -63,7 +66,7 @@ const Header = (props) => {
           handleClose={showPop}
           elementData={
             caller === "login" ? (
-              <Login />
+              <Login toggleSignup={toggleSignup} />
             ) : caller === "signup" ? (
               <Signup />
             ) : (

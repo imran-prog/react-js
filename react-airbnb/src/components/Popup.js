@@ -28,10 +28,9 @@ const Content = styled.div`
   height: auto;
   max-height: 70vh;
   margin-top: calc(100vh - 85vh - 20px);
-  background: #fff;
+  background: transparent;
   border-radius: 4px;
   padding: 20px;
-  border: 1px solid #999;
   overflow: auto;
 `;
 
@@ -39,8 +38,8 @@ const Cross = styled.div`
   content: "x";
   cursor: pointer;
   position: fixed;
-  right: calc(15% - 30px);
-  top: calc(100vh - 85vh - 33px);
+  right: calc(38% - 30px);
+  top: calc(108vh - 85vh - 33px);
   background: #ededed;
   width: 25px;
   height: 25px;
