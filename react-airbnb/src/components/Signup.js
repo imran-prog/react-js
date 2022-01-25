@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link, useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { auth, registerEmailAndPassword, signInWithGoogle } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -9,7 +9,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [user, loading, error] = useAuthState(auth);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const register = () => {
     if (!name) {
@@ -20,8 +20,8 @@ const Signup = () => {
 
   useEffect(() => {
     if (loading) return;
-    if (user) history.replace("/");
-  }, [history, loading, user]);
+    if (user) navigate("/");
+  }, [navigate, loading, user]);
 
   return (
     <Wrapper>
@@ -45,10 +45,8 @@ const Signup = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
-        <button onClick={() => loginWithEmailAndPassword(email, password)}>
-          Login
-        </button>
-        <button className="socialBtn" onClick={() => signInWithGoogle()}>
+        <button onClick={register}>Register</button>
+        <button className="socialBtn" onClick={signInWithGoogle}>
           Login with Google
         </button>
       </Content>
@@ -78,6 +76,22 @@ const Content = styled.div`
     margin-bottom: 10px;
     border-radius: 20px;
     border: 1px solid #01010160;
+    width: 250px;
+  }
+
+  button {
+    padding: 12px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: none;
+    color: white;
+    background-color: black;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
+  .socialBtn {
+    background-color: #4285f4 !important;
   }
 `;
 export default Signup;
