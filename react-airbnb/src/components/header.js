@@ -23,9 +23,8 @@ const Header = (props) => {
   const fetchUserName = async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
-      const doc = getDocs(q);
+      const doc = await getDocs(q);
       const data = doc.docs[0].data();
-      console.log(data);
       setName(data.name);
     } catch (e) {
       console.error(e);
