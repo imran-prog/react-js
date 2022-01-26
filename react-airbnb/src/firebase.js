@@ -52,6 +52,8 @@ const signInWithGoogle = async () => {
         name: user.displayName,
         authProvider: "google",
         email: user.email,
+        photoURL: user.photoURL,
+        phoneNumber: user.phoneNumber,
       });
     }
   } catch (e) {
@@ -75,11 +77,14 @@ const registerEmailAndPassword = async (name, email, password) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
+    console.log(user);
     await addDoc(collection(db, "users"), {
       uid: user.uid,
       name,
       authProvider: "local",
       email,
+      photoURL: user.photoURL,
+      phoneNumber: user.phoneNumber,
     });
   } catch (e) {
     console.error(e);

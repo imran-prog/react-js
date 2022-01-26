@@ -12,6 +12,7 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 
 const Header = (props) => {
   const [name, setName] = useState("");
+  const [photo, setPhoto] = useState("");
   const [user, loader, error] = useAuthState(auth);
   const [profileDrop, setProfileDrop] = useState(false);
   const [popup, setPopup] = useState(false);
@@ -20,12 +21,13 @@ const Header = (props) => {
   const showProfile = () => setProfileDrop(!profileDrop);
   const showPop = () => setPopup(!popup);
 
-  const fetchUserName = async () => {
+  const fetchUserNameAndPhoto = async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
       const doc = await getDocs(q);
       const data = doc.docs[0].data();
       setName(data.name);
+      setPhoto(data.photoURL);
     } catch (e) {
       console.error(e);
       alert("Eror while fetching user data");
@@ -35,7 +37,7 @@ const Header = (props) => {
   useEffect(() => {
     if (loader) return;
     if (!user) return;
-    fetchUserName();
+    fetchUserNameAndPhoto();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loader, user]);
 
@@ -63,7 +65,11 @@ const Header = (props) => {
           </LangRegion>
           <UserData>
             <span className="material-icons">menu</span>
-            <img src="/images/account.svg" alt="profile" />
+            {!user ? (
+              <img src="/images/account.svg" alt="profile" />
+            ) : (
+              <img src={photo} alt={name} />
+            )}
           </UserData>
           {profileDrop ? (
             <DropDown>
@@ -237,7 +243,7 @@ const UserData = styled.div`
   align-items: center;
   background: rgb(255, 255, 255);
   border-radius: 22px;
-  padding: 12px;
+  padding: 8px 12px;
   cursor: pointer;
 
   @media (max-width: 768px) {
@@ -251,8 +257,10 @@ const UserData = styled.div`
   }
 
   img {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+    margin-left: 5px;
   }
 `;
 export default Header;
