@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Popup from "./Popup";
 import Login from "./Login";
 import Signup from "./Signup";
+import Searchbar from "./Searchbar";
 // Firebase
 import { auth, db, logout } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -58,12 +59,15 @@ const Header = (props) => {
             <img src="/images/airbnb.png" alt="airbnb" />
           </Link>
         </Logo>
-        <UserList onClick={showProfile}>
+        <Search>
+          <Searchbar />
+        </Search>
+        <UserList>
           <Host>Become a Host</Host>
           <LangRegion>
             <span className="material-icons">language</span>
           </LangRegion>
-          <UserData>
+          <UserData onClick={showProfile}>
             <span className="material-icons">menu</span>
             {!user ? (
               <img src="/images/account.svg" alt="profile" />
@@ -263,4 +267,7 @@ const UserData = styled.div`
     margin-left: 5px;
   }
 `;
+
+const Search = styled.div``;
+
 export default Header;
