@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const MenuItem = (title, imageUrl) => {
+const MenuItem = ({ title, imageUrl, size }) => {
   return (
-    <Wrapper>
+    <Wrapper className={size} imageUrl={imageUrl}>
       <Content>
         <h1 className="title">{title}</h1>
         <span className="subtitle">SHOP NOW</span>
@@ -21,6 +21,13 @@ const Wrapper = styled.div`
   justify-content: center;
   border: 1px solid black;
   margin: 0 7.5px 15px;
+  background-image: url(${(props) => props.imageUrl});
+  background-position: center;
+  background-size: cover;
+
+  &.large {
+    height: 380px;
+  }
 
   &:first-child {
     margin-right: 7.5px;
@@ -45,6 +52,7 @@ const Content = styled.div`
     margin-bottom: 6px;
     font-size: 22px;
     color: #4a4a4a;
+    text-transform: uppercase;
   }
 
   .subtitle {
