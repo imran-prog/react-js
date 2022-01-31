@@ -14,8 +14,8 @@ const MenuItem = ({ title, imageUrl, size, linkUrl }) => {
   };
 
   return (
-    <Wrapper onClick={openLink}>
-      <Image className={size} imageUrl={imageUrl} />
+    <Wrapper onClick={openLink} className={size}>
+      <Image imageUrl={imageUrl} />
       <Content>
         <h1 className="title">{title.toUpperCase()}</h1>
         <span className="subtitle">SHOP NOW</span>
@@ -31,10 +31,6 @@ const Image = styled.div`
   background-image: url(${(props) => props.imageUrl});
   background-position: center;
   background-size: cover;
-
-  &.large {
-    height: 380px;
-  }
 `;
 
 const Content = styled.div`
@@ -71,6 +67,10 @@ const Wrapper = styled.div`
   justify-content: center;
   border: 1px solid black;
   margin: 0 7.5px 15px;
+
+  &.large {
+    height: 380px;
+  }
 
   &:hover {
     cursor: pointer;
