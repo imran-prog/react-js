@@ -2,6 +2,8 @@
 
 React-rmdb is reactjs based project developed using themoviedb api. It search and shows movies informations including many differenet entities. This project is still in development so more updates are coming everyday.
 
+## Live: [RMDB LIVE](https://react-movie-database-01.netlify.app)
+
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

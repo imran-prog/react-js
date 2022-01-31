@@ -2,6 +2,13 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## LIVE SITE: [DISNEY](https://react-disney-plus-01.netlify.app)
+
+## Features
+1. Working Authentication system
+2. Movie Info
+3. Movie Slider
+
 ## Available Scripts
 
 In the project directory, you can run:

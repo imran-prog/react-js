@@ -1,7 +1,7 @@
 # React Js - Projects
 <img src="https://github.com/imran-prog/react-js/blob/master/Static/images/ReactJS.png">
 
-These are some of the projects made in React Js. All of these projects are for learning Purposes so you can feel free to add Your own clicks to these projects.
+These are some of the projects made in React Js. All of these projects are for learning Purposes so you can feel free to add Your own clicks to these projects. There are two completed ones and one is under development.
 
 ### 1. React RMDB - React Movie DataBase
 This project is a example of API integration in which we are getting data from TMDB API and showing them in Grids
