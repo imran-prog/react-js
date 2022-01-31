@@ -3,10 +3,10 @@ import styled from "styled-components";
 // Components
 import Directory from "./Directory";
 
-const Home = () => {
+const Home = (props) => {
   return (
     <Wrapper>
-        <Directory />
+      <Directory />
     </Wrapper>
   );
 };

@@ -1,9 +1,20 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const MenuItem = ({ title, imageUrl, size }) => {
+const MenuItem = ({ title, imageUrl, size, linkUrl }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const openLink = () => {
+    const path = location.pathname;
+    if (path === "/") {
+      navigate(linkUrl);
+    }
+  };
+
   return (
-    <Wrapper>
+    <Wrapper onClick={openLink}>
       <Image className={size} imageUrl={imageUrl} />
       <Content>
         <h1 className="title">{title.toUpperCase()}</h1>
