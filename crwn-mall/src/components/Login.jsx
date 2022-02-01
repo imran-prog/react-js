@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+// Components
+import InputForm from "./FormInput";
+import CustomButton from "./CustomButton";
 
 class Login extends React.Component {
   constructor() {
@@ -35,37 +38,43 @@ class Login extends React.Component {
         <SubTitle>sign in with your email and password</SubTitle>
 
         <form onSubmit={this.handleSubmit}>
-          <Input
+          <InputForm
             name="email"
             type="email"
             value={this.state.email}
-            onChange={this.handleChange}
+            handleChange={this.handleChange}
+            label="Email"
             required
           />
-          <label>Email</label>
-          <Input
+          <InputForm
             name="password"
             type="password"
             value={this.state.password}
-            onChange={this.handleChange}
+            handleChange={this.handleChange}
+            label="Password"
             required
           />
-          <label>Password</label>
-          <Button type="submit" value="Submit Form" />
+          <CustomButton type="submit">Sign In</CustomButton>
         </form>
       </Wrapper>
     );
   }
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+`;
 
-const Title = styled.h2``;
+const Title = styled.h2`
+  font-size: 28px;
+  margin: 10px 0px;
+`;
 
-const SubTitle = styled.span``;
-
-const Input = styled.input``;
-
-const Button = styled.input``;
+const SubTitle = styled.span`
+  font-size: 18px;
+  margin: 10px 0px;
+`;
 
 export default Login;
