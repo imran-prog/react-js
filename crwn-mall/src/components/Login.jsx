@@ -35,7 +35,7 @@ class Login extends React.Component {
     return (
       <Wrapper>
         <Title>I already have an account!</Title>
-        <SubTitle>sign in with your email and password</SubTitle>
+        <SubTitle>Sign in with your email and password</SubTitle>
 
         <form onSubmit={this.handleSubmit}>
           <InputForm
