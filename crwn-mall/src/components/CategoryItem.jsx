@@ -27,6 +27,7 @@ const Image = styled.img`
   background-size: cover;
   background-position: center;
   margin-bottom: 5px;
+  object-fit: cover;
 `;
 
 const Content = styled.div`
