@@ -3,6 +3,8 @@ import styled from "styled-components";
 // Components
 import InputForm from "./FormInput";
 import CustomButton from "./CustomButton";
+import signInWithGoogle from "../firebase";
+// Firebase
 
 class Login extends React.Component {
   constructor() {
@@ -55,6 +57,9 @@ class Login extends React.Component {
             required
           />
           <CustomButton type="submit">Sign In</CustomButton>
+          <CustomButton onClick={signInWithGoogle}>
+            Sign In With Google
+          </CustomButton>
         </form>
       </Wrapper>
     );

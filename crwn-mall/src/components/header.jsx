@@ -13,6 +13,7 @@ const Header = () => {
       <NavMenu>
         <Link to="/shop">SHOP</Link>
         <Link to="/shop">CONTACT</Link>
+        <Link to="/signin">SIGNIN</Link>
       </NavMenu>
     </Wrapper>
   );
