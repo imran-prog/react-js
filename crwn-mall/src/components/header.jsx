@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 // Logo
 import { ReactComponent as Logo } from "../assets/crown.svg";
+// Firebase
+import { auth, logout } from "../firebase";
 
-const Header = () => {
+const Header = ({ currentUser }) => {
   return (
     <Wrapper>
       <Link to="/">
@@ -13,7 +15,11 @@ const Header = () => {
       <NavMenu>
         <Link to="/shop">SHOP</Link>
         <Link to="/shop">CONTACT</Link>
-        <Link to="/signin">SIGNIN</Link>
+        {currentUser ? (
+          <div onClick={logout}>SIGN OUT</div>
+        ) : (
+          <Link to="/signin">SIGN IN</Link>
+        )}
       </NavMenu>
     </Wrapper>
   );
@@ -42,11 +48,17 @@ const NavMenu = styled.div`
   align-items: center;
   justify-content: flex-end;
 
-  a {
+  a,
+  div {
     padding: 10px 15px;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 

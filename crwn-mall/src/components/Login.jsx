@@ -3,7 +3,7 @@ import styled from "styled-components";
 // Components
 import InputForm from "./FormInput";
 import CustomButton from "./CustomButton";
-import signInWithGoogle from "../firebase";
+import { signInWithGoogle } from "../firebase";
 // Firebase
 
 class Login extends React.Component {
