@@ -50,7 +50,7 @@ const NavMenu = styled.div`
 
   a,
   div {
-    padding: 10px 15px;
+    padding: 10px 5px;
     display: flex;
     align-items: center;
     justify-content: center;
