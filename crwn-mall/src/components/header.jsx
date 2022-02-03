@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // Logo
 import { ReactComponent as Logo } from "../assets/crown.svg";
 // Firebase
-import { auth, logout } from "../firebase";
+import { logout } from "../firebase";
 
 const Header = ({ currentUser }) => {
   return (

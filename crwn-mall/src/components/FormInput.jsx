@@ -47,6 +47,7 @@ const Input = styled.input`
   border-radius: 0;
   border-bottom: 1px solid grey;
   margin: 25px 0;
+  letter-spacing: ${(props) => (props.type === "password" ? "0.2rem" : "0")};
 
   &:focus {
     outline: none;

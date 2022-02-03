@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const CustomButton = ({ children, ...otherProps }) => (
-  <Wrapper {...otherProps}>{children}</Wrapper>
+const CustomButton = ({ children, isGoogleSignIn, ...otherProps }) => (
+  <Wrapper className={isGoogleSignIn ? "is-google" : null} {...otherProps}>
+    {children}
+  </Wrapper>
 );
 
 const Wrapper = styled.button`
@@ -25,6 +27,16 @@ const Wrapper = styled.button`
     background-color: white;
     color: black;
     border: 1px solid black;
+  }
+
+  &.is-google {
+    background-color: #4285f4;
+    color: #ffffff;
+
+    &:hover {
+      background-color: #357ae8;
+      border: none;
+    }
   }
 `;
 

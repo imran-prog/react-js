@@ -56,10 +56,12 @@ class Login extends React.Component {
             label="Password"
             required
           />
-          <CustomButton type="submit">Sign In</CustomButton>
-          <CustomButton onClick={signInWithGoogle}>
-            Sign In With Google
-          </CustomButton>
+          <Buttons>
+            <CustomButton type="submit">Sign In</CustomButton>
+            <CustomButton isGoogleSignIn onClick={signInWithGoogle}>
+              Sign In With Google
+            </CustomButton>
+          </Buttons>
         </form>
       </Wrapper>
     );
@@ -67,7 +69,7 @@ class Login extends React.Component {
 }
 
 const Wrapper = styled.div`
-  width: 30vw;
+  width: 380px;
   display: flex;
   flex-direction: column;
 `;
@@ -80,6 +82,11 @@ const Title = styled.h2`
 const SubTitle = styled.span`
   font-size: 18px;
   margin: 10px 0px;
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export default Login;
