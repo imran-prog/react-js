@@ -35,13 +35,15 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+const date = new Date();
+
 // Signin With Google PopUp
 const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({});
 const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
-    const date = new Date();
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
@@ -62,10 +64,57 @@ const signInWithGoogle = async () => {
 };
 
 // SignUp with Email and Password
+const loginWithEmailAndPassword = async (email, password) => {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (e) {
+    console.error(e);
+    alert(e.message);
+  }
+};
+
+// Register with Email and Password
+const registerEmailAndPassword = async (name, email, password) => {
+  try {
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const user = res.user;
+    await addDoc(collection(db, "users"), {
+      uid: user.uid,
+      name,
+      authProvider: "local",
+      email,
+      photoURL: user.photoURL,
+      phoneNumber: user.phoneNumber,
+      joinedDate: date.toLocaleDateString(),
+    });
+  } catch (e) {
+    console.error(e);
+    alert(e.message);
+  }
+};
+
+// Password Reset Link
+const sendPasswordReset = async (email) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert("password reset link sent!!!");
+  } catch (e) {
+    console.error(e);
+    alert(e.message);
+  }
+};
 
 // Logout
 const logout = () => {
   signOut(auth);
 };
 
-export { signInWithGoogle, auth, db, logout };
+export {
+  auth,
+  db,
+  signInWithGoogle,
+  loginWithEmailAndPassword,
+  registerEmailAndPassword,
+  sendPasswordReset,
+  logout,
+};
