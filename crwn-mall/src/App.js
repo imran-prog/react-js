@@ -20,11 +20,7 @@ class App extends React.Component {
     const { setCurrentUser } = this.props;
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setCurrentUser({ currentUser: user });
-      } else {
-        setCurrentUser({ currentUser: null });
-      }
+      setCurrentUser(user);
     });
   }
 
@@ -40,10 +36,9 @@ class App extends React.Component {
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route
+            exact
             path="/signin"
-            element={() =>
-              this.props.setCurrentUser ? <Navigate to="/" /> : <Signin />
-            }
+            element={this.props.currentUser ? <Navigate to="/" /> : <Signin />}
           />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
@@ -52,8 +47,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  setCurrentUser: state.user.currentUser,
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
