@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../assets/crown.svg";
 // Firebase
 import { logout } from "../firebase";
+// Connect to redux
+import { connect } from "react-redux";
 
 const Header = ({ currentUser }) => {
   return (
@@ -62,4 +64,9 @@ const NavMenu = styled.div`
   }
 `;
 
-export default Header;
+// mapStatetoProps
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(Header);
