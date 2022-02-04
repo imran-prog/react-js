@@ -39,15 +39,25 @@ class App extends React.Component {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
-          <Route path="/signin" element={<Signin />} />
+          <Route
+            path="/signin"
+            element={() =>
+              this.props.setCurrentUser ? <Navigate to="/" /> : <Signin />
+            }
+          />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  setCurrentUser: state.user.currentUser,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
