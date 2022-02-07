@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import CustomButton from "./CustomButton";
+// Redux
+import { connect } from "react-redux";
+import { addItem } from "../redux/cart/cart.actions";
 
-const CategoryItem = ({ id, name, price, imageUrl }) => {
+const CategoryItem = ({ item, addItem }) => {
+  const { name, price, imageUrl } = item;
   return (
     <Wrapper>
       <Image src={imageUrl} alt={name} />
@@ -10,7 +14,11 @@ const CategoryItem = ({ id, name, price, imageUrl }) => {
         <Title>{name}</Title>
         <Price>{price}</Price>
       </Content>
-      <CustomButton className="custom-button" inverted>
+      <CustomButton
+        className="custom-button"
+        onClick={() => addItem(item)}
+        inverted
+      >
         Add to cart
       </CustomButton>
     </Wrapper>
@@ -75,4 +83,8 @@ const Wrapper = styled.div`
   }
 `;
 
-export default CategoryItem;
+const mapDispatchToProps = (dispatch) => ({
+  addItem: (item) => dispatch(addItem(item)),
+});
+
+export default connect(null, mapDispatchToProps)(CategoryItem);

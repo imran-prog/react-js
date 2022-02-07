@@ -11,7 +11,7 @@ const CategoryList = ({ title, items }) => {
         {items
           .filter((item, index) => index < 4)
           .map((item) => (
-            <CategoryItem key={item.id} {...item} />
+            <CategoryItem key={item.id} item={item} />
           ))}
       </Content>
     </Wrapper>
