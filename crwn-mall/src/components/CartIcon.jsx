@@ -2,10 +2,13 @@ import React from "react";
 import styled from "styled-components";
 // Logo
 import { ReactComponent as ShoppingBag } from "../assets/shopping-bag.svg";
+// Redux
+import { connect } from "react-redux";
+import toggleCart from "../redux/cart/cart.actions";
 
-const CartIcon = () => {
+const CartIcon = ({ toggleCart }) => {
   return (
-    <Wrapper>
+    <Wrapper onClick={toggleCart}>
       <ShoppingBag className="shopping-icon" />
       <ItemCount>0</ItemCount>
     </Wrapper>
@@ -13,8 +16,8 @@ const CartIcon = () => {
 };
 
 const Wrapper = styled.div`
-  width: 45px;
-  height: 45px;
+  width: 32px;
+  height: 42px;
   position: relative;
   display: flex;
   align-items: center;
@@ -29,9 +32,13 @@ const Wrapper = styled.div`
 
 const ItemCount = styled.span`
   position: absolute;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: bold;
-  bottom: 12px;
+  bottom: 11px;
 `;
 
-export default CartIcon;
+const mapDispatchToProps = (dispatch) => ({
+  toggleCart: () => dispatch(toggleCart()),
+});
+
+export default connect(null, mapDispatchToProps)(CartIcon);

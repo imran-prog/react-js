@@ -9,8 +9,9 @@ import { logout } from "../firebase";
 import { connect } from "react-redux";
 // Components
 import CartIcon from "./CartIcon";
+import CartDropdown from "./CartDropdown";
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, hidden }) => {
   return (
     <Wrapper>
       <Link to="/">
@@ -26,6 +27,7 @@ const Header = ({ currentUser }) => {
         )}
         <CartIcon />
       </NavMenu>
+      {hidden ? null : <CartDropdown />}
     </Wrapper>
   );
 };
@@ -68,8 +70,9 @@ const NavMenu = styled.div`
 `;
 
 // mapStatetoProps
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden,
 });
 
 export default connect(mapStateToProps)(Header);
