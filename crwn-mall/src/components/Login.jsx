@@ -4,7 +4,6 @@ import styled from "styled-components";
 import InputForm from "./FormInput";
 import CustomButton from "./CustomButton";
 import { signInWithGoogle, loginWithEmailAndPassword } from "../firebase";
-// Firebase
 
 class Login extends React.Component {
   constructor() {

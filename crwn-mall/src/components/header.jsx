@@ -7,6 +7,8 @@ import { ReactComponent as Logo } from "../assets/crown.svg";
 import { logout } from "../firebase";
 // Connect to redux
 import { connect } from "react-redux";
+// Components
+import CartIcon from "./CartIcon";
 
 const Header = ({ currentUser }) => {
   return (
@@ -22,6 +24,7 @@ const Header = ({ currentUser }) => {
         ) : (
           <Link to="/signin">SIGN IN</Link>
         )}
+        <CartIcon />
       </NavMenu>
     </Wrapper>
   );
