@@ -12,7 +12,7 @@ const CategoryItem = ({ item, addItem }) => {
       <Image src={imageUrl} alt={name} />
       <Content>
         <Title>{name}</Title>
-        <Price>{price}</Price>
+        <Price>${price}</Price>
       </Content>
       <CustomButton
         className="custom-button"
