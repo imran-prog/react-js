@@ -7,6 +7,9 @@ import { ReactComponent as Logo } from "../assets/crown.svg";
 import { logout } from "../firebase";
 // Connect to redux
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { selectCurrentUser } from "../redux/user/user.selectors";
+import { selectCartItemsHidden } from "../redux/cart/cart.selectors";
 // Components
 import CartIcon from "./CartIcon";
 import CartDropdown from "./CartDropdown";
@@ -70,9 +73,9 @@ const NavMenu = styled.div`
 `;
 
 // mapStatetoProps
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
-  currentUser,
-  hidden,
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartItemsHidden,
 });
 
 export default connect(mapStateToProps)(Header);
