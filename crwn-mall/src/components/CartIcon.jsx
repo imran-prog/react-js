@@ -5,12 +5,13 @@ import { ReactComponent as ShoppingBag } from "../assets/shopping-bag.svg";
 // Redux
 import { connect } from "react-redux";
 import toggleCart from "../redux/cart/cart.actions";
+import { selectCartItemsCount } from "../redux/cart/cart.selectors";
 
-const CartIcon = ({ toggleCart }) => {
+const CartIcon = ({ toggleCart, itemCount }) => {
   return (
     <Wrapper onClick={toggleCart}>
       <ShoppingBag className="shopping-icon" />
-      <ItemCount>0</ItemCount>
+      <ItemCount>{itemCount}</ItemCount>
     </Wrapper>
   );
 };
@@ -41,4 +42,8 @@ const mapDispatchToProps = (dispatch) => ({
   toggleCart: () => dispatch(toggleCart()),
 });
 
-export default connect(null, mapDispatchToProps)(CartIcon);
+const mapStateToProps = (state) => ({
+  itemCount: selectCartItemsCount(state),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartIcon);
