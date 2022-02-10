@@ -9,4 +9,9 @@ export const addItem = (item) => ({
   payload: item,
 });
 
+export const removeItem = (item) => ({
+  type: cartActions.REMOVE_ITEM,
+  payload: item,
+});
+
 export default toggleCart;
