@@ -2,9 +2,8 @@ import React from "react";
 import styled from "styled-components";
 // redux
 import { connect } from "react-redux";
-import { removeItem } from "../redux/cart/cart.actions";
-
-const CheckOutItem = ({ cartItems, removeItem }) => {
+import { removeItem, addItem, decreaseItem } from "../redux/cart/cart.actions";
+const CheckOutItem = ({ cartItems, removeItem, addItem, decreaseItem }) => {
   const { name, imageUrl, quantity, price } = cartItems;
 
   return (
@@ -13,7 +12,11 @@ const CheckOutItem = ({ cartItems, removeItem }) => {
         <img src={imageUrl} alt={name} />
       </Image>
       <Block>{name}</Block>
-      <Block>{quantity}</Block>
+      <Block className="quantity">
+        <Arrow onClick={() => decreaseItem(cartItems)}>&#10094;</Arrow>
+        <Qunatity>{quantity}</Qunatity>
+        <Arrow onClick={() => addItem(cartItems)}>&#10095;</Arrow>
+      </Block>
       <Block>{price}</Block>
       <Remove onClick={() => removeItem(cartItems)}>&#10005;</Remove>
     </Wrapper>
@@ -42,6 +45,18 @@ const Image = styled.div`
 
 const Block = styled.span`
   width: 23%;
+
+  &.quantity {
+    display: flex;
+  }
+`;
+
+const Qunatity = styled.span`
+  margin: 0 10px;
+`;
+
+const Arrow = styled.div`
+  cursor: pointer;
 `;
 
 const Remove = styled.div`
@@ -51,6 +66,8 @@ const Remove = styled.div`
 
 const mapDispatchToProps = (dispatch) => ({
   removeItem: (item) => dispatch(removeItem(item)),
+  addItem: (item) => dispatch(addItem(item)),
+  decreaseItem: (item) => dispatch(decreaseItem(item)),
 });
 
 export default connect(null, mapDispatchToProps)(CheckOutItem);

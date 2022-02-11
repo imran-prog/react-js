@@ -14,4 +14,9 @@ export const removeItem = (item) => ({
   payload: item,
 });
 
+export const decreaseItem = (item) => ({
+  type: cartActions.DEREASE_ITEM,
+  payload: item,
+});
+
 export default toggleCart;

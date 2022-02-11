@@ -28,11 +28,9 @@ const Checkout = ({ cartItems, total }) => {
           <BlockText>Remove</BlockText>
         </HBlock>
       </Header>
-      <Content>
-        {cartItems.map((cartItem) => (
-          <CheckOutItem key={cartItem.id} cartItems={cartItem} />
-        ))}
-      </Content>
+      {cartItems.map((cartItem) => (
+        <CheckOutItem key={cartItem.id} cartItems={cartItem} />
+      ))}
       <Total>Total: ${total}</Total>
     </Wrapper>
   );
@@ -66,8 +64,6 @@ const HBlock = styled.div`
 `;
 
 const BlockText = styled.span``;
-
-const Content = styled.div``;
 
 const Total = styled.div`
   margin-top: 30px;
