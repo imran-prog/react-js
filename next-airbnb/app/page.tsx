@@ -1,3 +1,4 @@
+import Footer from "./components/Footer"
 import Hero from "./components/Hero"
 import LargeCard from "./components/LargeCard"
 import MediumCard from "./components/MediumCard"
@@ -60,6 +61,8 @@ export default async function Home() {
           buttonText="Get Inspired"
         />
 			</div>
+
+			<Footer />
 		</main>
 	)
 }
