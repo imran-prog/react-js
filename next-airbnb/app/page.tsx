@@ -37,8 +37,8 @@ export default async function Home() {
 					<h2 className="text-4xl font-semibold pb-5">Explore Nearby</h2>
 
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-						{exploreData.map(({ img, location, distance }) => (
-							<SmallCard img={img} location={location} distance={distance} />
+						{exploreData.map(({ img, location, distance }, index) => (
+							<SmallCard key={index} img={img} location={location} distance={distance} />
 						))}
 					</div>
 				</section>
@@ -47,8 +47,8 @@ export default async function Home() {
 					<h2 className="text-4xl font-semibold pb-5">Live Anywhere</h2>
 
 					<div className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3">
-						{categoryData.map(({ img, title }) => (
-							<MediumCard img={img} title={title} />
+						{categoryData.map(({ img, title }, index) => (
+							<MediumCard key={index} img={img} title={title} />
 						))}
 					</div>
 				</section>
